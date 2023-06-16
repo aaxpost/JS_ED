@@ -8,31 +8,26 @@ console.log(pars);
 for (let par of pars) {
 	let span = document.createElement('span');
 	span.textContent = par.textContent;
+	span.addEventListener('click', function func() {
+		let input = document.createElement('input');
+		input.value = span.textContent;
+		span.textContent = '';
+		span.appendChild(input);
+		input.addEventListener('blur', function(){
+			span.textContent = input.value;
+			span.addEventListener('click', func);
+		});
+		span.removeEventListener('click', func);
+	});
+
 	par.textContent = '';
 	par.appendChild(span);
 	let hrRemove = document.createElement('a');
-	hrRemove.href = '';
+	hrRemove.href = '#';
 	hrRemove.textContent = 'remove';
+	
+	par.appendChild(hrRemove);
 	hrRemove.addEventListener('click', function() {
 		par.remove();
-	});
-	par.appendChild(hrRemove);
-	
+	});	
 };
-
-let spans = document.querySelectorAll('span');
-for (let span of spans) {
-	let elem = span;
-	elem.addEventListener('click', function func() {
-		let input = document.createElement('input');
-		input.value = elem.textContent;
-		elem.textContent = '';
-		elem.appendChild(input);
-		input.addEventListener('blur', function(){
-			elem.textContent = input.value;
-			elem.addEventListener('click', func);
-		});
-		elem.removeEventListener('click', func);
-	});
-	
-}
