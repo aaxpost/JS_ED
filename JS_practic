@@ -64,3 +64,38 @@ for (let par of pars) {
 	});	
 };
 
+
+Модифицируйте предыдущую задачу так, чтобы после нажатия на ссылку эта ссылка удалялась из абзаца (а текст абзаца становился перечеркнутым). 
+"use strict";
+
+let pars = document.querySelectorAll('p');
+
+console.log(pars);
+for (let par of pars) {
+	let span = document.createElement('span');
+	span.textContent = par.textContent;
+	span.addEventListener('click', function func() {
+		let input = document.createElement('input');
+		input.value = span.textContent;
+		span.textContent = '';
+		span.appendChild(input);
+		input.addEventListener('blur', function(){
+			span.textContent = input.value;
+			span.addEventListener('click', func);
+		});
+		span.removeEventListener('click', func);
+	});
+
+	par.textContent = '';
+	par.appendChild(span);
+	let hrRemove = document.createElement('a');
+	hrRemove.href = '#';
+	hrRemove.textContent = 'decoration';
+	
+	par.appendChild(hrRemove);
+	hrRemove.addEventListener('click', function() {
+		span.classList.add("line");
+		hrRemove.remove();
+	});	
+};
+
