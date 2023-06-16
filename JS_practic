@@ -31,3 +31,36 @@ for (let par of pars) {
 		par.remove();
 	});	
 };
+
+
+Добавьте в конец каждого абзаца ссылку, по клику на которую текст абзаца будет перечеркиваться (а ссылка - нет). 
+let pars = document.querySelectorAll('p');
+
+console.log(pars);
+for (let par of pars) {
+	let span = document.createElement('span');
+	span.textContent = par.textContent;
+	span.addEventListener('click', function func() {
+		let input = document.createElement('input');
+		input.value = span.textContent;
+		span.textContent = '';
+		span.appendChild(input);
+		input.addEventListener('blur', function(){
+			span.textContent = input.value;
+			span.addEventListener('click', func);
+		});
+		span.removeEventListener('click', func);
+	});
+
+	par.textContent = '';
+	par.appendChild(span);
+	let hrRemove = document.createElement('a');
+	hrRemove.href = '#';
+	hrRemove.textContent = 'decoration';
+	
+	par.appendChild(hrRemove);
+	hrRemove.addEventListener('click', function() {
+		span.classList.add("line");
+	});	
+};
+
