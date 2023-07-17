@@ -1,3 +1,82 @@
+
+№1⊗jsPmPrEChT
+Дан массив. Выведите его элементы в виде списка ul.
+№2⊗jsPmPrEChT
+Модифицируйте предыдущую задачу так, чтобы по клику на любую li в ней появлялся инпут, с помощью которого ее можно будет поредактировать.
+№3⊗jsPmPrEChT
+Модифицируйте предыдущую задачу так, чтобы под списком был инпут, с помощью которого можно будет добавить новый элемент в конец списка ul. Сделайте так, чтобы новые li также можно было редактировать.
+№4⊗jsPmPrEChT
+Модифицируйте предыдущую задачу так, чтобы в конце каждой li стояла ссылка 'удалить', с помощью которой можно будет удалить эту li из ul.
+№5⊗jsPmPrEChT
+Модифицируйте предыдущую задачу так, чтобы в конце каждой li также стояла ссылка 'перечеркнуть', с помощью которой можно будет перечеркнуть текст данного тега li.
+"use strict";
+
+function func () {
+    let input = document.createElement('input');
+    input.value = this.innerText;
+    this.innerText = '';
+    this.appendChild(input);
+    this.removeEventListener('click', func);
+    let li = this;
+    input.addEventListener('blur', function () {
+        li.innerText = input.value;
+        li.addEventListener('click', func);
+        this.remove();    
+    });  
+}
+
+function liFunc (li) {
+    let href = document.createElement('a');
+    href.href = '#';
+    href.innerText = 'del';
+    href.addEventListener('click', function() {
+        li.remove();
+    });
+    li.appendChild(href);
+
+    let href2 = document.createElement('a');
+    href2.href = '#';
+    href2.innerText = 'del2';
+    href2.addEventListener('click', function() {
+        li.querySelector('span').classList.add('through');
+    });
+    li.appendChild(href2);
+}
+
+let arr = [1,2,3];
+let parent = document.querySelector('#parent');
+let ul = document.createElement('ul');
+parent.appendChild(ul);
+
+for (let elem of arr) {
+    let li = document.createElement('li');
+    li.innerHTML = '<span>'+ elem;
+
+    liFunc (li);
+    
+    li.querySelector('span').addEventListener('click', func);
+    ul.appendChild(li);
+}
+let input2 = document.createElement('input');
+input2.addEventListener('blur', function () {
+    let li = document.createElement('li');
+    li.innerHTML = '<span>'+ input2.value;
+
+    liFunc (li);
+   
+    li.querySelector('span').addEventListener('click', func);
+    input2.value = '';
+    ul.appendChild(li);
+})
+parent.appendChild(input2);
+
+
+
+
+
+
+
+**********************************************************
 ⊗jsPmPrRET
 Оберните сначала текст абзаца в теги span, добавьте к этим тегам возможность редактирования, а затем добавьте в конец каждого абзаца ссылку на удаление. 
 "use strict";
