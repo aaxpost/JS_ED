@@ -196,3 +196,88 @@ for (let tr of trs) {
 };
 
 
+*************************************************************************************************************
+// №6 ⊗jsPmPrEChT Дан следующий массив с работниками:
+//Выведите этих работников в HTML таблице. 
+// №7⊗jsPmPrEChT Добавьте ячейкам созданной таблицы возможность редактирования.
+// №8⊗jsPmPrEChT Добавьте в вашу таблицу новую колонку со ссылкой на удаления ряда из таблицы.
+// №9⊗jsPmPrEChT Сделайте под таблицей 3 инпута и кнопку для добавление нового работника. Пусть в инпуты вводятся имя, возраст и зарплата, и по нажатию на кнопку новый работник добавляется в таблицу. Реализуйте редактирование ячеек для вновь добавленных работников.
+let employees = [
+	{name: 'employee1', age: 30, salary: 400},
+	{name: 'employee2', age: 31, salary: 500},
+	{name: 'employee3', age: 32, salary: 600},
+];
+
+function func () {
+    let input = document.createElement('input');
+    input.value = this.innerText;
+    this.innerText = '';
+    this.appendChild(input);
+    this.removeEventListener('click', func);
+    let li = this;
+    input.addEventListener('blur', function () {
+        li.innerText = input.value;
+        li.addEventListener('click', func);
+        this.remove();    
+    });  
+}
+
+function addElemDel (parent, elem) {
+    let href = document.createElement('a');
+    href.href = '#';
+    href.innerText = 'del';
+    href.addEventListener('click', function() {
+        parent.remove();
+    });
+    elem.appendChild(href);
+}
+
+let parent = document.querySelector('#parent');
+let table = document.createElement('table');
+let tr = document.createElement('tr');
+	 for (let key in employees[0]) {
+			let th = document.createElement('th');
+			th.innerText = key;
+			tr.appendChild(th);
+	 }
+table.appendChild(tr);
+for (let employee of employees) {
+	let tr = document.createElement('tr');
+	 for (let key in employee) {
+		let th = document.createElement('th');
+		th.innerText = employee[key];
+		th.addEventListener('click', func);
+		tr.appendChild(th);
+	 }
+	 let th = document.createElement('th');
+	 addElemDel (tr, th);
+	 tr.appendChild(th);
+	 table.appendChild(tr);
+}
+parent.appendChild(table);
+
+let button = document.querySelector('button');
+let inputName = document.querySelector('#name');
+let inputAge = document.querySelector('#age');
+let inputSalary = document.querySelector('#salary');
+button.addEventListener('click', function() {
+	let tr = document.createElement('tr');
+	let thName = document.createElement('th');
+	thName.innerText = inputName.value;
+	thName.addEventListener('click', func);
+	tr.appendChild(thName);
+	let thAge = document.createElement('th');
+	thAge.innerText = inputAge.value;
+	thAge.addEventListener('click', func);
+	tr.appendChild(thAge);
+	let thSalary = document.createElement('th');
+	thSalary.innerText = inputSalary.value;
+	thSalary.addEventListener('click', func);
+	tr.appendChild(thSalary);
+	let thDel = document.createElement('th');
+	addElemDel (tr, thDel);
+	tr.appendChild(thDel);
+	table.appendChild(tr);
+});
+
+***********************************************************************************************************************************
