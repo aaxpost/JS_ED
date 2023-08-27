@@ -281,3 +281,72 @@ button.addEventListener('click', function() {
 });
 
 ***********************************************************************************************************************************
+'use strict'
+Практика на изменение элементов на JavaScript
+//  №10⊗jsPmPrEChT Дан следующий массив с работниками: 
+// Выведите на экран каждого работника в своем теге li тега ul.
+//№11⊗jsPmPrEChT Сделайте так, чтобы по клику на имя, возраст или зарплату работника появлялся инпут для редактирования этого поля.
+// №12⊗jsPmPrEChT Добавьте в конец каждого тега li ссылку на удаление этого li из списка.
+// №13⊗jsPmPrEChT Под списком сделайте форму для добавления нового работника.
+
+let employees = [
+	{name: 'employee1', age: 30, salary: 400},
+	{name: 'employee2', age: 31, salary: 500},
+	{name: 'employee3', age: 32, salary: 600},
+];
+
+function func () {
+    let input = document.createElement('input');
+    input.value = this.innerText;
+    this.innerText = '';
+    this.appendChild(input);
+    this.removeEventListener('click', func);
+    let item = this;
+    input.addEventListener('blur', function () {
+        item.innerText = input.value;
+        item.addEventListener('click', func);
+        this.remove();    
+    });  
+}
+
+function addElemDel (parent, elem) {
+    let href = document.createElement('a');
+    href.href = '#';
+    href.innerText = 'del';
+    href.addEventListener('click', function() {
+        parent.remove();
+    });
+    elem.appendChild(href);
+}
+
+function createElLi (obj, ul, addElemDel) {
+	let li = document.createElement('li');
+	for (let key in obj) {
+		let pKey = document.createElement('span');
+		pKey.innerText = "  " + key + ': ';
+		li.appendChild(pKey);
+		let span = document.createElement('span');
+		span.innerText = obj[key];
+		span.addEventListener('click', func);
+		li.appendChild(span);	
+	}
+	addElemDel(li, li);
+	return ul.appendChild(li);
+}
+
+let parent = document.querySelector('#parent');
+let ul = document.createElement('ul');
+for (let employee of employees) {
+	createElLi (employee, ul, addElemDel);
+}
+parent.appendChild(ul);
+
+let button = document.querySelector('button');
+let inputName = document.querySelector('#name');
+let inputAge = document.querySelector('#age');
+let inputSalary = document.querySelector('#salary');
+let newEmployee = {name: inputName.value, age: inputAge.value, salary: inputSalary.value};
+button.addEventListener('click', function() {
+	createElLi (newEmployee, ul, addElemDel);
+});
+
