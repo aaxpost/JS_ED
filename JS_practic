@@ -350,3 +350,91 @@ button.addEventListener('click', function() {
 	createElLi (newEmployee, ul, addElemDel);
 });
 
+
+************************************************************************************************
+//Игра угадай ячейку на JavaScript
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<div id="parent">
+			<input class="btn" type="button" value='START'>
+			<p class="result"></p>
+		</div>
+		
+		
+		
+		<script src="script.js?v=5"></script>
+	</body>
+</html>
+
+
+'use strict'
+
+function getMinOfArray(numArray) {
+	return Math.min.apply(null, numArray);
+  }
+
+function getRandomInt(max) {
+	return Math.floor(Math.random() * max);
+  }
+
+function createArrNum() {
+	let arr = [];
+	for (let i = 1; i <= 100; i++) {
+		if (i <= 10) {
+			arr.push('mem');
+		} else {
+			arr.push('zero');
+		}
+	}
+	return arr;
+}
+
+let btn = document.querySelector('.btn');
+btn.addEventListener('click', function () {
+	
+	let arr = createArrNum();
+	let shuffle = arr.sort(() => Math.random() - 0.5);
+	let parent = document.querySelector('#parent');
+	let table = document.createElement('table');
+	for (let i = 1; i < 11; i++) {
+		let tr = document.createElement('tr');
+		for (let j = 1; j < 11; j++) {
+			let th = document.createElement('th');
+			th.classList.add(shuffle.shift());
+			th.addEventListener('click', function funcMem() {
+				if (this.classList.contains('mem')) {
+					this.classList.add('true');
+				} else {
+					this.classList.add('error');
+				}	
+			});
+			th.textContent = '';
+			tr.appendChild(th);
+		}
+		table.appendChild(tr);
+	}
+	
+	parent.appendChild(table);
+
+	let i = 0;
+	let p = document.querySelector('.result');
+	let timerId = setInterval(function() {
+	p.textContent = ++i;
+	if (i >= 10) {
+		clearInterval(timerId);
+		let th = document.querySelectorAll('th');
+		for (let elem of th) {
+			elem.removeEventListener('click', funcMem);
+		}	
+	}
+	}, 1000);
+	
+});
+
+
