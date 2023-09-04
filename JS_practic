@@ -434,3 +434,59 @@ btn.addEventListener('click', function () {
 	parent.appendChild(table);
 });
 
+********************************************************************************************************************
+Экранная клавиатура на JavaScript
+'use strict'
+
+let parent = document.querySelector('#parent');
+let input_print = document.createElement('input');
+input_print.type = "text";
+parent.appendChild(input_print);
+
+let div = document.createElement('div');
+let caps = document.createElement('input');
+caps.type = 'button';
+caps.value = 'caps';
+caps.addEventListener('click', function () {
+	caps.classList.toggle("caps");
+});
+div.appendChild(caps);
+
+for (let i = 0; i <= 9; i++) {
+	let input = document.createElement('input');
+	input.type = 'button';
+	input.classList = 'class_' + i;
+	input.value = i;
+	input.addEventListener('click', function () {
+		input_print.value += input.value;
+	});
+	div.appendChild(input);
+}
+let br = document.createElement('br');
+div.appendChild(br);
+
+let arr = [ 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'];
+for (let elem of arr) {
+	let input = document.createElement('input');
+	input.type = 'button';
+	input.classList = 'class_' + elem;
+	input.value = elem;
+	input.addEventListener('click', function () {
+		if (caps.classList.contains("caps")) {
+			input_print.value += input.value.toUpperCase();
+		} else {
+			input_print.value += input.value;
+		}
+		
+	});
+	div.appendChild(input);
+}
+
+parent.appendChild(div);
+
+
+
+
+
+
+
