@@ -461,3 +461,32 @@ things.sort(); // ['1 Слово', '2 Слова', 'Слово', 'слово']
 // В Unicode, числа находятся перед буквами в верхнем регистре,
 // а те, в свою очередь, перед буквами в нижнем регистре.
 
+//Генерация массива классов
+function getRandomInt(max) {
+	return Math.floor(Math.random() * max);
+  }
+
+function getRandomArr(max) {
+	let arr = [];
+	for (let i = 1; arr.length < max; i++) {
+		let newElem = getRandomInt(max);
+		if (arr.includes(newElem) == false) {
+			arr.push(newElem)
+		}
+	}
+	return arr;	
+}
+  
+let arr_100 = getRandomArr(100);
+let arr_10 = getRandomArr(10);
+
+let arrClass = [];
+for (let elem of arr_100) {
+	if (arr_10.includes(elem)) {
+		arrClass.push('memo');
+	} else {
+		arrClass.push('zero');
+	}
+}
+console.log('ura' + arrClass);
+
