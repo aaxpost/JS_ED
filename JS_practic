@@ -353,6 +353,7 @@ button.addEventListener('click', function() {
 
 ************************************************************************************************
 //Игра угадай ячейку на JavaScript
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -371,100 +372,10 @@ button.addEventListener('click', function() {
 		<script src="script.js?v=5"></script>
 	</body>
 </html>
-
-
 'use strict'
-
-function getMinOfArray(numArray) {
-	return Math.min.apply(null, numArray);
-  }
-
 function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
-  }
-
-function createArrNum() {
-	let arr = [];
-	for (let i = 1; i <= 100; i++) {
-		if (i <= 10) {
-			arr.push('mem');
-		} else {
-			arr.push('zero');
-		}
-	}
-	return arr;
 }
-
-let btn = document.querySelector('.btn');
-btn.addEventListener('click', function () {
-	
-	let arr = createArrNum();
-	let shuffle = arr.sort(() => Math.random() - 0.5);
-	let parent = document.querySelector('#parent');
-	let table = document.createElement('table');
-	for (let i = 1; i < 11; i++) {
-		let tr = document.createElement('tr');
-		for (let j = 1; j < 11; j++) {
-			let th = document.createElement('th');
-			th.classList.add(shuffle.shift());
-			th.addEventListener('click', function funcMem() {
-				if (this.classList.contains('mem')) {
-					this.classList.add('true');
-				} else {
-					this.classList.add('error');
-				}	
-			});
-			th.textContent = '';
-			tr.appendChild(th);
-		}
-		table.appendChild(tr);
-	}
-	
-	parent.appendChild(table);
-
-	let i = 0;
-	let p = document.querySelector('.result');
-	let timerId = setInterval(function() {
-	p.textContent = ++i;
-	if (i >= 10) {
-		clearInterval(timerId);
-		let th = document.querySelectorAll('th');
-		for (let elem of th) {
-			elem.removeEventListener('click', funcMem);
-		}	
-	}
-	}, 1000);
-	
-});
-
-const array1 = [1, 2, 3];
-
-console.log(array1.includes(2));
-// Expected output: true
-
-const pets = ['cat', 'dog', 'bat'];
-
-console.log(pets.includes('cat'));
-// Expected output: true
-
-console.log(pets.includes('at'));
-// Expected output: false
-
-var fruit = ["арбузы", "бананы", "Вишня"];
-fruit.sort(); // ['Вишня', 'арбузы', 'бананы']
-
-var scores = [1, 2, 10, 21];
-scores.sort(); // [1, 10, 2, 21]
-
-var things = ["слово", "Слово", "1 Слово", "2 Слова"];
-things.sort(); // ['1 Слово', '2 Слова', 'Слово', 'слово']
-// В Unicode, числа находятся перед буквами в верхнем регистре,
-// а те, в свою очередь, перед буквами в нижнем регистре.
-
-//Генерация массива классов
-function getRandomInt(max) {
-	return Math.floor(Math.random() * max);
-  }
 
 function getRandomArr(max) {
 	let arr = [];
@@ -474,19 +385,52 @@ function getRandomArr(max) {
 			arr.push(newElem)
 		}
 	}
-	return arr;	
+	return arr;		
 }
-  
+
 let arr_100 = getRandomArr(100);
 let arr_10 = getRandomArr(10);
 
-let arrClass = [];
+let shuffle = [];
 for (let elem of arr_100) {
 	if (arr_10.includes(elem)) {
-		arrClass.push('memo');
+		shuffle.push('mem');
 	} else {
-		arrClass.push('zero');
+		shuffle.push('zero');
 	}
 }
-console.log('ura' + arrClass);
+
+let btn = document.querySelector('.btn');
+btn.addEventListener('click', function () {
+	let k = 0;
+	let p = document.querySelector('.result');
+	let timerId = setInterval(function() {
+	p.textContent = ++k;
+	if (k >= 30) {
+		clearInterval(timerId);
+	}
+	}, 1000);
+		
+	let parent = document.querySelector('#parent');
+	let table = document.createElement('table');
+	for (let i = 1; i < 11; i++) {
+		let tr = document.createElement('tr');
+		for (let j = 1; j < 11; j++) {
+			let th = document.createElement('th');
+			th.classList.add(shuffle.shift());
+			th.addEventListener('click', function funcMem() {
+				if (this.classList.contains('mem') && k < 30) {
+					this.classList.add('true');
+				}
+				if (this.classList.contains('zero') && k < 30) {
+					this.classList.add('error');
+				}
+			});
+			th.textContent = '';
+			tr.appendChild(th);
+		}
+		table.appendChild(tr);
+	}
+	parent.appendChild(table);
+});
 
