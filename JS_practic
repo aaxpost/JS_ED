@@ -593,6 +593,80 @@ if (flug != true) {
 	parent.appendChild(ul);
 }
 
+*******************************************************************************************************************
+//Линейный календарь сокращенная версия
+//⊗jsPrStLC
+'use strict'
+//Формирую список дней по длине месяца
+function createArrDate(todayDate) {
+	let ul = document.createElement('ul');
+	let lengthMonth = new Date(
+		todayDate.getFullYear(),
+		todayDate.getMonth(), 0).getDate();
+	console.log(lengthMonth);
+
+	for (let i = 1; i <= lengthMonth; i++) {
+		let li = document.createElement('li');
+		li.textContent = i + '; ';
+		if (todayDate.getDate() == i) {
+			li.classList.add('today');
+		}
+		ul.appendChild(li);	
+	}
+	return ul;
+}
+//Изменяю год и месяц
+function changeYearMonth(parent, createArrDate, i) {
+	let oldUl = document.querySelector('ul');
+	parent.removeChild(oldUl);
+	let flag = true;
+	if (flag == true) {
+		if (i == 0) {
+			todayDate = new Date(todayDate.getFullYear(), todayDate.getMonth() - 1);
+		}
+		if (i == 1) {
+			todayDate = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1);
+		}
+		let pYear = document.querySelector('p');
+		pYear.textContent = todayDate.getFullYear();
+		let pMonth = document.querySelector('.month');
+		pMonth.textContent = arrMonth[todayDate.getMonth()];
+		parent.appendChild(createArrDate(todayDate));	
+	}
+}
+//Массив месяцев
+let arrMonth = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
+let parent = document.querySelector('#parent');
+let todayDate = new Date();
+let flag;
+let input_1 = document.createElement('input');
+input_1.type = 'button';
+input_1.classList = 'class_left';
+input_1.value = '<<';
+input_1.addEventListener('click', function () {
+	changeYearMonth(parent, createArrDate, 0);
+});
+parent.appendChild(input_1);
+let input_2 = document.createElement('input');
+input_2.type = 'button';
+input_2.classList = 'class_right';
+input_2.value = '>>';
+input_2.addEventListener('click', function () {
+	changeYearMonth(parent, createArrDate, 1);
+});
+parent.appendChild(input_2);
+//Вывожу текущий месяц
+if (flag != true) {
+	let pYear = document.createElement('p');
+	pYear.textContent = todayDate.getFullYear();
+	parent.appendChild(pYear);
+	let pMonth = document.createElement('p');
+	pMonth.classList.add('month');
+	pMonth.textContent = arrMonth[todayDate.getMonth()];
+	parent.appendChild(pMonth);
+	parent.appendChild(createArrDate(new Date()));
+}
+
 
 
 
