@@ -667,6 +667,78 @@ if (flag != true) {
 	parent.appendChild(createArrDate(new Date()));
 }
 
+*******************************************************************************************************************
+Поиск исторических события на JavaScript
+
+Пусть мы хотим написать сайт, показывающий таблицу исторических событий за определенный год. Пусть год будет вводится в инпут.
+По нажатию Enter давайте выведем таблицу событий, случившихся в этот год. Пусть в качестве информации о событии мы хотим видеть дату, 
+название и описание события. Давайте я покажу вам образец того, что должно получится (для простоты я сделал события за 2000, 2001 и 2002 годы): 
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<div id="parent">
+			<input id="input" placeholder="введите год и нажмите Enter">
+			<table id="table"></table>
+			<p></p>
+		</div>
+		<script src="script.js?v=5"></script>
+	</body>
+</html>
+
+
+
+
+'use strict'
+
+let parent = document.querySelector('#parent');
+let table = document.querySelector('#table');
+let input = document.querySelector('#input');
+let p = document.querySelector('p');
+
+let obj = {
+	'2001':  [['01.03.2001', 'событие 1', 'описание события 1'],
+			['01.03.2001', 'событие 1', 'описание события 1'],
+			['01.03.2001', 'событие 1', 'описание события 1']],
+	'2002':  [['01.03.2002', 'событие 1', 'описание события 1'],
+			['01.03.2002', 'событие 1', 'описание события 1'],
+			['01.03.2002', 'событие 1', 'описание события 1']],
+	'2003':  [['01.03.2003', 'событие 1', 'описание события 1'],
+			['01.03.2003', 'событие 1', 'описание события 1'],
+			['01.03.2003', 'событие 1', 'описание события 1']],
+}
+
+input.addEventListener('keydown', function(event) {
+	if (event.key == 'Enter') {
+		let arrTr = document.querySelectorAll('tr');
+		for (let tr of arrTr) {
+			table.removeChild(tr);
+		}
+		let year = input.value;
+		if (year in obj) {
+			
+			for (let events of obj[year]) {
+				let tr = document.createElement('tr');
+				for (let event of  events) {
+						let td = document.createElement('td');
+						td.textContent = event;
+						tr.appendChild(td)
+				}
+				table.appendChild(tr);
+			}
+			p.innerText = '';
+		} else {
+			p.innerText = 'такой даты нет';
+		}
+	}
+});
+
+
+
 
 
 
