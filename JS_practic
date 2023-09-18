@@ -739,6 +739,59 @@ input.addEventListener('keydown', function(event) {
 
 
 
+************************************************************************************************
+Сайт предсказаний на JavaScript
+Сейчас мы сделаем сайт, который будет выдавать предсказания. Пусть на этом сайте будет кнопка, по нажатию на которую будет запускаться таймер, который будет каждые 0.1 секунд выводить в в какой-нибудь див случайное число от 1 до некоторого максимального.
+Под дивом пусть будет другая кнопка, по нажатию на которую пользователь нашего сайта может остановить таймер и зафиксировать некоторое число в диве. Это число будет номером предсказания. После этого покажите пользователю предсказание с этим номером, а все лишние кнопки уберите с экрана, чтобы пользователь не мог получить еще одно предсказание. То есть на один заход на сайт - одно предсказание.
+Вот образец того, что должно получится:
+
+"use strict";
+
+let timerDiv = document.querySelector('#timer');
+let textDiv = document.querySelector('#text');
+let startButton = document.querySelector('#start');
+let stopButton = document.querySelector('#stop');
+let prediction = {
+    '1': '1 хорошее предсказание',
+    '2': '2 плохое предсказание',
+    '3': '3 хорошее предсказание',
+    '4': '4  плохое предсказание',
+    '5': '5 предсказание',
+    '6': '6 предсказание',
+    '7': '7 предсказание',
+    '8': '8 предсказание',
+    '9': '9 предсказание',
+    '10': '10 предсказание',
+}
+
+startButton.addEventListener('click', function func1() {
+    startButton.classList.remove('active');
+    stopButton.classList.add('active');
+    let i = 1;
+    let timerId = setInterval(function() {
+        if (i < 10) {
+            timerDiv.textContent = ++i;
+            stopButton.addEventListener('click', function func2() {
+                textDiv.textContent = prediction[i];
+                if (i % 2 == 0) {
+                    textDiv.classList.add('bad');
+                } else {
+                    textDiv.classList.add('good');
+                }
+                stopButton.classList.remove('active');
+                clearInterval(timerId);
+                timerDiv.textContent = i;
+                startButton.removeEventListener('click', func1);  
+            });
+        } else {
+            i = 1;
+        }  
+    }, 100);
+    startButton.removeEventListener('click', func1);
+});
+
+
+
 
 
 
