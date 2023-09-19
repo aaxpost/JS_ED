@@ -846,9 +846,58 @@ for (let elem of toggleArr) {
 }
 
 ********************************************************************************************************
+Автодополнение на JavaScript
+Сейчас мы реализуем автодополнение. Под этим термином понимается выпадающая подсказка при вводе текста в инпут. Давайте посмотрим на примере. Ниже я сделал инпут, в который можно ввести название страны. При этом, если ввести какие-то буквы, то под инпутом появится список стран, которые начинаются на введенную строку.
+При желании можно, чтобы не вводить целиком имя страны, кликнуть мышкой на любую страну и она появится в инпуте. Для этого, в общем-то, автодополнение и нужно. В примере для простоты я сделал только три страны: Belarus, Belgium и Bulgaria. Введите в приведенный ниже инпут сначала символ 'В' английское, а потом 'e' и посмотрите, что будет: 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="parent">
+        <input id="elem">
+        <ul id="list"></ul>
+    </div>
+    text text text text text
+</body>
+<script src="script.js?v=2"></script>
+</html>
 
+/////////////////////////
+"use strict";
 
+let arr  = ['Belarus', 'Belgium', 'Bulgaria'];
+let elem = document.querySelector('#elem');
+let list = document.querySelector('#list');
+
+elem.addEventListener('keyup', function func() {
+    list.innerHTML = "";
+    let arrList = arr.filter(function(str) { 
+        if (str.startsWith(elem.value)) {
+            return true;  
+        } else {
+            return false;
+        }	
+    });
+
+    let str = elem.value;
+    if (str.length > 0) {
+        for (let liText of arrList) {       
+            let li = document.createElement('li');
+            li.textContent = liText;
+            li.addEventListener('click', function() {
+                elem.value = liText;
+                list.innerHTML = "";
+            });
+            list.appendChild(li);
+        }
+    }
+});
 
 
 
