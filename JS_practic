@@ -899,7 +899,87 @@ elem.addEventListener('keyup', function func() {
     }
 });
 
+***********************************************************************************
+Вкладки на JavaScript
+Сейчас мы реализуем вкладки. Сразу посмотрите на образец того, что от вас требуется:
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="parent">
+        <div class="menu">
+            <a href="#" class="active">вкладка 1</a>
+            <a href="#">вкладка 2</a>
+            <a href="#">вкладка 3</a>
+        </div>
+        <div class="tabs">
+            <div class="tab active">
+                текст вкладки 1
+            </div>
+            <div class="tab">
+                текст вкладки 2
+            </div>
+            <div class="tab">
+                текст вкладки 3
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>   
+</body>
+</html>
+
+//////////////////////////////////////////////////////
+let parent = document.querySelector('#parent');
+let arrHref = parent.querySelectorAll('.menu a');
+let arrTabs = parent.querySelectorAll('.tabs .tab');
+
+for (let i = 0; i < arrHref.length; i++) {
+    arrHref[i].addEventListener('click', function() {
+        arrHref[i].classList.add('active');
+        arrTabs[i].classList.add('active');
+        for (let key in arrHref) {
+            if (key != i) {
+                arrHref[key].classList.remove('active');
+                arrTabs[key].classList.remove('active');
+            }
+        }  
+    });
+}
+
+////////////////////////////////////////////////////
+.menu a {
+	margin-right: 5px;
+	display: inline-block;
+	padding: 10px;
+	color: black;
+	text-decoration: none;
+	border: 1px solid gray;
+}
+.menu a:hover {
+	background: #f8f8f8;
+}
+.menu a.active {
+	border-color: transparent;
+	background: #f2f2f2;
+}
+
+.tabs .tab:not(.active) {
+	display: none;
+}
+.tabs .tab {
+	padding: 10px;
+	background: #f2f2f2;
+	height: 300px;
+}
+
+*************************************************************
 
 
 
