@@ -1185,6 +1185,75 @@ for (let link of linkArr) {
     });
 }
 
+///////////////////////////////////////////////////////////
+Игра в города против робота на JavaScript
+///////////////////////////////////////////////////////////
+"use strict";
+
+let field   = document.querySelector('#field');
+let message = document.querySelector('#message');
+
+function getLastKey (word) {
+   return word[word.length - 1]; 
+	 }
+//Преверяем, что элемент есть массиве			
+function checkTown (arr, str) {
+   return arr.every(function(elem) {
+   if (elem != str) {
+       return true;
+       } else {
+          return false;
+       }
+   });
+}
+
+
+let cities = [];
+let allCities = ['qw', 'we', 'er', 'rt', 'ty', 'yu'];
+
+field.addEventListener('keydown', function(event) {
+	if (event.key == 'Enter') {
+        let error = false;
+        //Человек проверка существования города и что это первый город в игре
+        let townIsset = allCities.includes(field.value);
+        if (cities.length == 0 && townIsset == true) { 
+            cities.push(field.value);
+            message.textContent = "Succes. Next";
+        } else {
+            //В массиве больше одного элемента и город есть в массиве робота
+            if (cities.length > 0 && townIsset == true) {
+                //Город еще не использован в игре
+                let check = cities.includes(field.value);
+                let city = cities[cities.length - 1];
+                if (field.value[0] == city[city.length - 1] && 
+                    check != true) {
+                    cities.push(field.value);
+                    message.textContent = "Succes. Next";
+                } else {
+                    error = true;
+                    message.textContent = "Последняя буква прошлого города не совпадает с первой введенного или такого города нет в базе";
+                }     
+            } 
+        }
+        ///Компьютер
+      if (error != true) {
+		    let lastKeyField = getLastKey(field.value);
+            let flugNoCity = true;
+		    for (let elem of allCities) {
+					if (elem[0] ==  lastKeyField && checkTown (cities, elem) == true) {
+                      cities.push(elem);
+                      field.value = elem;
+                      flugNoCity = false;
+					}
+			}
+            if (flugNoCity == true) {
+                message.textContent = "Ran out of cities";
+            }
+      } 
+    console.log(cities);    
+    }
+});
+
 
 
 
