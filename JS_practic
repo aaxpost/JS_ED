@@ -1409,6 +1409,41 @@ h2 {
 }
 
 
+888888888888888888888888888888888888888888888888888888888888888888888888888888888
+ №1⊗jsPrTstHQA
+Сделайте так, чтобы ввод ответа в инпут завершался нажатием клавиши Enter. Пусть в этом случае инпут сразу проверяет ответ на правильность.
+№2⊗jsPrTstHQA
+Модифицируйте ваш код так, чтобы проверка ответов выполнялась по нажатию на кнопку.
+
+"use strict"
+
+let inputs   = document.querySelectorAll('input');
+let button   = document.querySelector('button');
+/*
+inputs.forEach(function (inp) {
+    inp.addEventListener('keydown', function(event) {
+        if (event.key == 'Enter') {
+            if (inp.dataset.right == inp.value) {
+                inp.classList.add("right");
+            } else {
+                inp.classList.add("wrong");
+            }
+        }
+    });   
+});
+*/
+
+button.addEventListener('click', function() {
+    inputs.forEach(function (inp) {
+            if (inp.dataset.right == inp.value) {
+                inp.classList.add("right");
+            } else {
+                inp.classList.add("wrong");
+            }
+        });   
+});
+
+999999999999999999999999999999999999999999999999999999999999999999999
 
 
 
