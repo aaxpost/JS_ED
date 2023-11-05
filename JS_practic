@@ -1511,3 +1511,119 @@ button.addEventListener('click', function() {
 });
 
 
+===========================================================================================
+32 Тест с вопросами и ответами в массиве на JavaScript
+===========================================================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="test"></div>
+    <button id="button">проверить ответы</button>
+
+    <!--
+      <div id="test">
+        <div>
+            <p>вопрос 1?</p>
+            <input>
+        </div>
+        <div>
+            <p>вопрос 2?</p>
+            <input>
+        </div>
+        <div>
+            <p>вопрос 3?</p>
+            <input>
+        </div>
+        
+        <button id="button">проверить ответы</button>
+    </div>  
+    -->
+    
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+"use strict"
+//32
+let answers = [
+	'ответ 1',
+	'ответ 2',
+	'ответ 3',
+];
+
+let questions = [
+	'вопрос 1?',
+	'вопрос 2?',
+	'вопрос 3?'
+];
+
+let parentDiv   = document.querySelector('#test');
+let button   = document.querySelector('#button');
+
+questions.forEach(function func(elem) {
+    let div = document.createElement('div');
+    let p = document.createElement('p');
+    p.textContent = elem;
+    let input = document.createElement('input');
+    div.appendChild(p);
+    div.appendChild(input);
+    
+    parentDiv.appendChild(div);
+});
+
+let inputs   = document.querySelectorAll('input');
+
+button.addEventListener('click', function() {
+    inputs.forEach(function (inp, inpKey) {
+            answers.forEach((answer, answerKey) => {
+                if (answer == inp.value && inpKey == answerKey) {
+                    console.log(answer);
+                    inp.classList.add("right");
+                }
+                if (answer != inp.value && inpKey == answerKey) {
+                    console.log(answer);
+                    inp.classList.add("wrong");
+                }
+                });
+
+            
+        });   
+});
+
+
+
+
+//let inputs   = document.querySelectorAll('input');
+//let button   = document.querySelector('#button');
+
+
+/*
+
+button.addEventListener('click', function() {
+    inputs.forEach(function (inp, inpKey) {
+            answers.forEach((answer, answerKey) => {
+                if (answer == inp.value && inpKey == answerKey) {
+                    console.log(answer);
+                    inp.classList.add("right");
+                }
+                if (answer != inp.value && inpKey == answerKey) {
+                    console.log(answer);
+                    inp.classList.add("wrong");
+                }
+                });
+
+            
+        });   
+});
+*/
+
+
+
+
