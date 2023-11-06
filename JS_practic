@@ -1625,5 +1625,63 @@ button.addEventListener('click', function() {
 */
 
 
+========================================================================
+Тест с вопросами и ответами в объекте на JavaScript
+
+В предыдущем уроке наши вопросы и ответы хранились в разных переменных. Такое разделение зачастую может быть не очень удобным. Давайте поработаем с другими вариантами хранения. 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="test"></div>
+    <button id="button">проверить ответы</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+"use strict"
+//33
+const questions = {
+	'Вопрос 1?': 'ответ 1',
+	'Вопрос 2?': 'ответ 2',
+	'Вопрос 3?': 'ответ 3',
+}
+
+let parentDiv   = document.querySelector('#test');
+let button   = document.querySelector('#button');
+
+for (const [key, value] of Object.entries(questions)) {
+    //console.log(`${key}: ${value}`);
+    let div = document.createElement('div');
+    let p = document.createElement('p');
+    p.textContent = key;
+    let input = document.createElement('input');
+    input.dataset.right = value;
+    div.appendChild(p);
+    div.appendChild(input);
+    parentDiv.appendChild(div);
+}
+
+let inputs = document.querySelectorAll('input');
+
+button.addEventListener('click', function() {
+    inputs.forEach(function (inp) {
+            if (inp.value == inp.dataset.right) {
+                console.log(inp.value);
+                inp.classList.add("right");
+            }
+            if (inp.value != inp.dataset.right) {
+                console.log(inp.value);
+                inp.classList.add("wrong");
+            }      
+        });   
+});
 
 
