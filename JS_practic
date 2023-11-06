@@ -1684,4 +1684,50 @@ button.addEventListener('click', function() {
         });   
 });
 
+===============================
+//33_2
+let questions = [
+	{
+		text:  'вопрос 1?',
+		right: 'ответ 1',
+	},
+	{
+		text:  'вопрос 2?',
+		right: 'ответ 2',
+	},
+	{
+		text:  'вопрос 3?',
+		right: 'ответ 3',
+	},
+];
 
+let parentDiv   = document.querySelector('#test');
+let button   = document.querySelector('#button');
+
+
+
+questions.forEach(function (elem) {
+    let div = document.createElement('div');
+    let p = document.createElement('p');
+    p.textContent = elem.text;
+    let input = document.createElement('input');
+    input.dataset.right = elem.right;
+    div.appendChild(p);
+    div.appendChild(input);
+    parentDiv.appendChild(div);
+});
+
+let inputs = document.querySelectorAll('input');
+
+button.addEventListener('click', function() {
+    inputs.forEach(function (inp) {
+            if (inp.value == inp.dataset.right) {
+                console.log(inp.value);
+                inp.classList.add("right");
+            }
+            if (inp.value != inp.dataset.right) {
+                console.log(inp.value);
+                inp.classList.add("wrong");
+            }      
+        });   
+});
