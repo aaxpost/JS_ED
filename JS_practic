@@ -1913,3 +1913,75 @@ setInterval(function() {
 }, 1000);
 
 ===========================================
+38
+Слайдер текста со стрелками на JavaScript
+
+Давайте теперь сделаем слайдер текста со стрелками. Это значит, что текст будет меняться не по таймеру, а по нажатию на стрелку. Добавим стрелки в наш HTML код:
+<a href="" id="left">←</a>
+<a href="" id="right">→</a>
+<div id="slider"></div>
+
+Основная тонкость решения этого слайдера в том, что переменная-счетчик текстов должна быть общей для обработчиков кликов наших стрелок:
+let i = 0; // внешняя переменная
+
+left.addEventListener('click', function() {
+	// уменьшаем i на 1
+	// и выводим текст с номером i
+});
+right.addEventListener('click', function() {
+	// увеличиваем i на 1
+	// и выводим текст с номером i
+});
+
+А вторая тонкость в том, что как при уменьшении i, так и при увеличении, нельзя выйти в числа меньше нуля и больше последнего элемента массива.
+
+№1⊗jsPrSlTWA
+
+Реализуйте описанный слайдер. Сделайте так, чтобы тексты ходили по кругу.
+
+№2⊗jsPrSlTWA
+
+Модифицируйте предыдущую задачу так, чтобы тексты не ходили по кругу, а просто не прокручивались дальше по достижению крайнего правого или левого положения.
+===========================================================
+
+"use strict"
+//38
+let texts = ['text1', 'text2', 'text3'];
+
+let div = document.querySelector('#slider');
+
+let i = 0; // внешняя переменная
+
+
+let left = document.querySelector('#left');
+let right = document.querySelector('#right');
+
+div.textContent = texts[i];
+
+left.addEventListener('click', function() {
+	// уменьшаем i на 1
+	// и выводим текст с номером i
+    if (i > 0) {
+        i--;
+        div.textContent = texts[i];   
+    } else {
+        i = 2;
+        //div.textContent = texts[0];
+        div.textContent = texts[i];
+    }
+});
+
+right.addEventListener('click', function() {
+	// увеличиваем i на 1
+	// и выводим текст с номером i
+    if (i < 2) {
+        i++;
+        div.textContent = texts[i];   
+    } else {
+        i = 0;
+        div.textContent = texts[i];
+        
+    }
+    
+});
+console.log(i);
