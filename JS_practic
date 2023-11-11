@@ -1886,3 +1886,30 @@ button.addEventListener('click', function() {
 .wrong {
 	background-color: red;
 }
+
+==========================================
+Слайдер текста на JavaScript
+
+В данном разделе мы займемся созданием слайдеров. Начнем с самых простых и будем постепенно усложнять.
+
+Для начала сделаем слайдер текста. Этот слайдер будет представлять собой див, в котором каждую секунду будет меняться текст: 
+"use strict"
+//37
+let texts = ['text1', 'text2', 'text3'];
+
+let div   = document.querySelector('#slider');
+
+let i = 0;
+
+setInterval(function() {
+        if (i <= 2) {
+            div.textContent = texts[i];
+            i++;  
+        } else {
+            div.textContent = texts[0];
+            i = 1;
+        }
+        
+}, 1000);
+
+===========================================
