@@ -1778,3 +1778,111 @@ button.addEventListener('click', function() {
 });
 
 ==========================================================================
+36
+Тест с вопросами и вариантами ответов в объекте на JavaScript
+
+Пусть теперь вопросы, варианты ответов и номера правильных ответов хранятся в одном объекте:
+============================================================================
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="test"></div>
+    <button id="button">проверить ответы</button> 
+    <script src="script.js"></script>
+</body>
+</html>
+
+---------------------------------------------
+
+"use strict"
+//36
+let questions = [
+	{
+		text: 'вопрос 1?',
+		right: 0,
+		variants: [
+			'вариант 1',
+			'вариант 2',
+			'вариант 3'
+		]
+	},
+	{
+		text: 'вопрос 2?',
+		right: 1,
+		variants: [
+			'вариант 1',
+			'вариант 2',
+			'вариант 3'
+		]
+	},
+	{
+		text: 'вопрос 3?',
+		right: 2,
+		variants: [
+			'вариант 1',
+			'вариант 2',
+			'вариант 3'
+		]
+	},
+];
+
+let parentDiv   = document.querySelector('#test');
+let button   = document.querySelector('#button');
+
+questions.forEach(function (obj, key) {
+    let div = document.createElement('div');
+    let p = document.createElement('p');
+    p.textContent = obj.text;
+    div.appendChild(p);
+    let i = 0;
+    obj.variants.forEach(function (variant) {
+        console.log(i);
+        let label = document.createElement('label');
+        let input = document.createElement('input');
+        input.type = 'radio';
+        input.name = key;
+        if (i == obj.right) {
+            input.dataset.right = 1;
+        } else {
+            input.dataset.right = 0;
+        }
+        let span = document.createElement('span');
+        span.textContent = variant;
+        label.appendChild(input);
+        label.appendChild(span);
+        div.appendChild(label);
+        i = +i + 1;
+    });
+    parentDiv.appendChild(div);
+});
+
+let inputs = document.querySelectorAll('input');
+
+button.addEventListener('click', function() {
+    inputs.forEach(function (inp) {
+            //console.log('***');
+            if (inp.dataset.right == true && inp.checked == true) {
+                console.log(inp.checked);
+                inp.parentElement.classList.add("right");
+            }
+            if (inp.dataset.right == false && inp.checked == true) {
+                console.log(inp.checked);
+                inp.parentElement.classList.add("wrong");
+            }      
+        });   
+});
+
+------------------------------------------
+.right {
+	background-color: green;
+}
+.wrong {
+	background-color: red;
+}
