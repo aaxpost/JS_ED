@@ -2091,3 +2091,64 @@ function count() {
       
 }
 
+------------------------------------------------------------------
+40
+------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="slider">
+        <img src="1.jpeg">
+        <img src="2.jpeg">
+        <img src="3.jpeg">
+    </div>
+    <!--<a href="#" id="left">←</a>
+    <a href="#" id="right">→</a>
+    <img id="slider" src="">-->
+    <script src="script.js"></script>
+</body>
+</html>
+
+.hide {
+	display: none;
+}
+
+"use strict"
+//40
+let texts = document.querySelectorAll('img');
+console.log(texts);
+
+let slider = document.querySelector('#slider');
+
+let i = 0; // внешняя переменная
+
+console.log(i);
+
+
+texts.forEach(function (src) {
+    src.classList.add("hide");
+});
+texts[0].classList.remove("hide");
+
+setInterval(function() {
+    texts.forEach(function (src) {
+        src.classList.add("hide");
+    });
+    if (i <= 2) {
+        texts[i].classList.remove("hide");
+        i++;  
+    } else {
+        texts[0].classList.remove("hide");
+        i = 1;
+    }
+    
+}, 1000);
+
+
+
