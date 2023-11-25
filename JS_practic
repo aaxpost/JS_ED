@@ -2151,4 +2151,106 @@ setInterval(function() {
 }, 1000);
 
 
+////////////////////////////////////////////////////////
+Крестики Нолики
+////////////////////////////////////////////////////////
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <table id="field">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <p></p>
+    <script src="script.js"></script>
+</body>
+</html>
+
+"use strict"
+//41+
+let result = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+];
+
+function isVictory(result, cells, clickCell, i) {
+    result.forEach(function (item) {
+        if (cells[item[0]].textContent == cells[item[1]].textContent &&
+            cells[item[1]].textContent == cells[item[2]].textContent &&
+            cells[item[0]].textContent == clickCell &&
+            cells[item[1]].textContent == clickCell &&
+            cells[item[2]].textContent == clickCell) {
+                p.textContent = clickCell + " победил";
+                console.log("true");
+            } else {
+                if (cells[item[0]].textContent != "" &&
+                cells[item[1]].textContent != "" &&
+                cells[item[2]].textContent != "" &&
+                i >= 8) {
+                    p.textContent = "draw";
+                    i = 0;
+                }
+            }
+    });
+}
+
+function start(cells) {
+        let i = 0;
+    cells.forEach(function (cell) {
+        cell.addEventListener("click", function func () {
+            this.textContent = ['X', '0'][i % 2];
+            let clickCell = this.textContent;
+            isVictory(result, cells, clickCell, i);
+            //isDraw(result, cells, clickCell, i)
+            i++;
+            this.removeEventListener("click", func);
+            console.log(i);
+            
+        });
+    });
+}
+
+
+
+let cells = document.querySelectorAll('#field td');
+let p = document.querySelector('p');
+start(cells);
+
+#field td {
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	text-align: center;
+	font-weight: bold;
+}
+
+
+
+
+
 
