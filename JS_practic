@@ -2251,6 +2251,106 @@ start(cells);
 
 
 
+//////////////////////////////////////////////////////
+игрa смена цветов
+//////////////////////////////////////////////////////
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <p></p>
+    <table id="field"></table>
+    <p></p>
+    <script src="script.js"></script>
+</body>
+</html>
+-------------------------------------------------------
+#field td {
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	text-align: center;
+	font-weight: bold;
+}
+
+.red {
+	background: red;
+}
+.green {
+	background: green;
+}
+.blue {
+	background: blue;
+}
+--------------------------------------------------------
+"use strict"
+//47
+
+function getNumFromArr (colors, elem) {
+    let length = colors.length - 1;
+    let color = '0';
+    if (length == colors.indexOf(elem)) {
+        color = colors[0];
+    } else {
+        color = colors[colors.indexOf(elem) + 1];
+    }
+    return color;
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+let table = document.querySelector('#field');
+
+let rows = 3;
+let cols = 3;
+let colors = ['red', 'green', 'blue'];
+let p = document.querySelector('p');
+
+console.log(getNumFromArr(colors, 'red'));
+
+let num = 0;
+
+for (let i = 0; i < rows; i++) {
+    let tr = document.createElement('tr');
+	for (let j = 0; j < cols; j++) {
+		let td = document.createElement('td');
+        td.classList.add(colors[getRandomInt(3)]);
+        td.addEventListener('click', function () {
+            num++;
+            p.textContent = num;
+            console.log(num);
+            this.className = getNumFromArr (colors, this.className);
+            let cellColors = document.querySelectorAll('td');
+
+            let arr = [];
+            let thisColor = this.className;
+
+            cellColors.forEach(function (elem) {    
+                arr.push(elem);
+            });
+
+            let result = arr.every(function (elem) {
+                if (elem.className == thisColor) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            if (result == true) {
+                alert("WIN!");
+            }   
+        });
+        tr.appendChild(td);
+	}
+    table.appendChild(tr); 
+}
 
 
 
